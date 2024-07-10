@@ -53,9 +53,35 @@
 - A good tool of measuring cache performance is : AMAT (Average Memory Access TIme)
 - This is how AMAT is calculated
   
-    **AMAT= HIT TIME = MISS RATE X MISS PENALTY** (WE NEED TO KEEP THIS TO VERY LOW IN ORDER TO FLAG THE CACHE AS A GOOD CACHE)
+    **AMAT= HIT TIME + MISS RATE X MISS PENALTY** (WE NEED TO KEEP THIS TO VERY LOW IN ORDER TO FLAG THE CACHE AS A GOOD CACHE)
 
     *HIT TIME= * Should be small and fast
     *MISS RATE= * The cache should be large enough to keep more and more data or the cache should be smart enough to remove old data and keep new data inside the cache
     *MISS PENALTY= * This is simply the time required to access the data from the main memory
     
+- HIT TIME = MISS TIME + MISS PENALTY
+- For designing an ideal cache, the HIT time should be much lesser than the MISS time and the MISS time should be greater than or equal to the MISS penalty
+- HIT RATE = 1 -  MISS RATE
+- For a well-designed cache, we need to have:
+  - HIT RATE > MISS RATE
+  - HIT RATE IS ALMOST 1
+- In Netflix, caches play a major role throughout the customer experience, right from playing a movie, providing a high-volume, low-latency, globally available data layer (EVCache) that backs Netflix’s stateless services.
+
+## Cache locality
+- Defines that when ever the cache is hit at some address, the function is going to grab the near by location of cache hit as well because it can happen that the next ask comes to these neighbouring addresses. 
+- There are 2 types of cache locality:
+  - **temporal:** If we access one address it's likely that we are going to access that address again. (Very often access leads to Temporal locality)
+  - **spatial:** If we access one address, it's likely that we are going to access the nearby addresses as well. (Address of the next available items likely to be accessed)
+- Example of locality:
+  - Let's say we are taking an example of Library which is large and but slow to access.
+    - TEMPORAL locality : Look for the definition of same LOCALITY more often
+    - SPATIAL locality : Look for a computer architecture definition in the book and you are likely to see other computer architecture  definition as well.
+
+## Cache sizes in Real processors
+The modern processors usually have several caches not just one. So now we are going to talk about the L1 caches.
+- **L1 cache**  
+  - Directly service the read and write request from the processor.
+  - If this is a hit then its okay, else if it is a miss then things get complicated because before we go to the main memory, we go to other caches.
+  - In recent processors the typical size of L1 caches have been 16 KBs - 64 KBs
+  - Large enough in size to get about 90% hit rate but still small enough to HIT in 1-3 processor cycle. So, we spend very few processor cycles waiting for the data to comeback from this cache if it's a hit. 
+  
