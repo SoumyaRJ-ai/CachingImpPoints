@@ -77,11 +77,22 @@
     - TEMPORAL locality : Look for the definition of same LOCALITY more often
     - SPATIAL locality : Look for a computer architecture definition in the book and you are likely to see other computer architecture  definition as well.
 
-## Cache sizes in Real processors
-The modern processors usually have several caches not just one. So now we are going to talk about the L1 caches.
+## Cache Organization
+**The modern processors usually have several caches not just one. So now we are going to talk about the L1 caches.**
 - **L1 cache**  
   - Directly service the read and write request from the processor.
   - If this is a hit then its okay, else if it is a miss then things get complicated because before we go to the main memory, we go to other caches.
   - In recent processors the typical size of L1 caches have been 16 KBs - 64 KBs
-  - Large enough in size to get about 90% hit rate but still small enough to HIT in 1-3 processor cycle. So, we spend very few processor cycles waiting for the data to comeback from this cache if it's a hit. 
+  - Large enough in size to get about 90% hit rate but still small enough to HIT in 1-3 processor cycle. So, we spend very few processor cycles waiting for the data to comeback from this cache if it's a hit.
+
+**There are basically 2 things we need to answer while managing the cache**
+- *How to determine HIT or MISS?*
+  - We can represent our cache as a table which we can index with some bits of address of the data and it tells us what we have in the cache and if we do have what we are looking for, then it gives us the data.
+  - Some part of the cache entry should tell us about the cache hit and how much data we have in the entry is called the Block size or Line size. And they tell us the size of the each entry.
+  - The size of the block is determined by keeping in mind that we need to have the Spatial locality in the block as well. So, the block size should be atleast as large as the largest single access that we can do in the cache and hopefully a bit larger than that because when we do a load work or store work, we should get our data at the same location. Again we need to have spatial locality beacuse we need to know the next locations as well from where we can access the next data as well.
+  - So typically the block size should be around 32 to 128 bytes work well both from the prospective of larger than a typical access and also they capture most of the spatial locality that exists in the program.
+  - Including SPATIAL locality helps in bringing in the near by addresses of each variable so that we won't be provisioning an entire block to a single variable. If there is no SPATIAL locality and only TEMPORAL locality, in order to get the high rate of HIT we need to keep the entire block of the variable inside the cache which significantly decreases the amount of blocks you can have inside your cache.  
+*- How to decide which one to kick out of the cache*
+
+
   
